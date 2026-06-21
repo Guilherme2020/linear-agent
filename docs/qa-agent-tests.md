@@ -1,6 +1,5 @@
 # QA — Linear Agent: Script de Testes
 
-
 ## Bloco 1 — Projetos e navegação no Linear
 
 ### T01 — Listar projetos
@@ -12,7 +11,16 @@ Esperado: lista dos 6 projetos criados, com nome e status.
 Output recebido:
 
 ```
-[cole aqui]
+[[21/06/26, 14:17:04] Amor Da Minha Vida: Liste meus projetos no linear
+[21/06/26, 14:18:04] Guilherme: Encontrei seus projetos no Linear 🔍
+
+1.⁠ ⁠✅ Projeto 6 — QA, Evals e Produção (Backlog)
+2.⁠ ⁠☁️ Projeto 5 — Infraestrutura e DevOps (Backlog)
+3.⁠ ⁠📊 Projeto 4 — CRM e Dashboard (Backlog)
+4.⁠ ⁠🤖 Projeto 3 — Agente de IA (Backlog)
+5.⁠ ⁠⚙️ Projeto 2 — Backend Core (Backlog)
+
+Mostrando 5 de pelo menos 6. Quer ver mais ou detalhes de algum projeto específico?]
 ```
 
 ---
@@ -26,7 +34,33 @@ Esperado: lista de issues do projeto com título e status.
 Output recebido:
 
 ```
-[cole aqui]
+[[21/06/26, 14:22:01] Guilherme: Projeto 1 — Discovery e Produto tem 1 task:
+
+🔍 NEX-5 — Épico 1: Discovery, fluxos e regras de negócio
+Status: Backlog | Prioridade: Alta
+Labels: Sprint 0, P0, MVP
+
+Quer ver os detalhes dessa task ou criar novas?
+[21/06/26, 14:23:37] Amor Da Minha Vida: Sim, quero ver detalhes
+[21/06/26, 14:23:57] Guilherme: NEX-5 — Épico 1: Discovery, fluxos e regras de negócio
+
+Status: Backlog | Prioridade: Alta (P0) | Sprint 0
+
+Objetivo: Mapear o comportamento esperado do produto, definindo escopo, fluxos e regras de negócio antes do desenvolvimento.
+
+Atividades principais:
+•⁠  ⁠Definir jornada do lead e funil comercial
+•⁠  ⁠Definir regras de agendamento e disponibilidade
+•⁠  ⁠Definir políticas de WhatsApp (opt-in/opt-out, anti-spam)
+•⁠  ⁠Definir eventos de CRM e métricas de sucesso
+•⁠  ⁠Definir escopo do MVP
+
+Entregáveis:
+•⁠  ⁠Fluxo da conversa e de agendamento
+•⁠  ⁠Modelo inicial de dados
+•⁠  ⁠Regras de negócio e critérios de aceite
+•⁠  ⁠Roadmap do MVP
+]
 ```
 
 ---
@@ -40,8 +74,31 @@ Esperado: lista de issues do ciclo ativo, ou mensagem informando que não há ci
 Output recebido:
 
 ```
-[cole aqui]
+[21/06/26, 14:50:22] Amor Da Minha Vida: o que esta no ciclo atual ?
+[21/06/26, 14:50:43] Guilherme: Não há nenhum ciclo (sprint) ativo no momento para o time NextFitPersonal.
+
+Quer que eu crie um novo ciclo/sprint?
+[21/06/26, 14:52:54] Amor Da Minha Vida: Sim, quero que crie
+[21/06/26, 14:53:09] Guilherme: Infelizmente ainda não tenho permissão para criar ciclos diretamente via bot. 😅
+
+Para criar um novo sprint, acesse o Linear em:
+linear.app/next-fit-personal → seu time → Cycles → New cycle
+
+Posso te ajudar com qualquer outra coisa: tasks, projetos, comentários, atribuições...
+
 ```
+
+Status: ⚠️ parcial
+Observação: Turno 1 correto (list_cycles funcionou).
+Turno 2 incorreto — agente disse "não tenho permissão"
+em vez de "create_cycle não está disponível no MCP".
+Correção: adicionado limitações explícitas no AGENTS.md.
+
+# Tools NÃO disponíveis no MCP oficial (não invente permissão — informe claramente):
+
+# - create_cycle, update_cycle, delete_cycle
+
+# - Ações administrativas (webhooks, configurações de time)
 
 ---
 
@@ -56,7 +113,9 @@ Esperado: confirmação com ID gerado (ex: NEX-123) e título.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -70,7 +129,9 @@ Esperado: issue criada no projeto correto com prioridade e label.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -84,7 +145,9 @@ Esperado: confirmação de atualização de status.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -98,7 +161,9 @@ Esperado: confirmação de comentário adicionado.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -112,7 +177,9 @@ Esperado: confirmação de atribuição.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -126,7 +193,9 @@ Esperado: agente pede confirmação antes de mover para Cancelled.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -140,7 +209,9 @@ Esperado: agente move para Cancelled e confirma.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -156,7 +227,9 @@ Esperado: agente lê o documento via Linear MCP e cria múltiplas issues coerent
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -175,7 +248,9 @@ Esperado: lista de PRs com número, título e status.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -189,7 +264,9 @@ Esperado: título, estado (open/closed/merged), reviews, CI status.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -203,7 +280,9 @@ Esperado: lista de reviewers e status de cada review (aprovado, pendente, change
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -219,7 +298,9 @@ Esperado: agente submete review de aprovação via GitHub MCP e confirma.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -235,7 +316,9 @@ Esperado: agente pede confirmação (ação irreversível), depois executa o mer
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -253,7 +336,9 @@ Esperado: agente busca o branch da issue no Linear e encontra o PR correspondent
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -267,7 +352,9 @@ Esperado: agente cruza os dois sistemas e informa a inconsistência se existir.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -285,7 +372,9 @@ Esperado:
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -301,7 +390,9 @@ Esperado:
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -315,7 +406,9 @@ Esperado: agente pergunta qual task (se houver mais de uma com "autenticação")
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -329,7 +422,9 @@ Esperado: agente informa que não encontrou a task e oferece alternativas.
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -345,7 +440,9 @@ Esperado: agente usa o contexto da mensagem anterior para identificar qual task 
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -359,7 +456,9 @@ Esperado: agente retorna máximo 5 e oferece "ver mais".
 Output recebido:
 
 ```
+
 [cole aqui]
+
 ```
 
 ---
@@ -394,3 +493,7 @@ Output recebido:
 | T24   | Listagem longa                      | ⬜     |
 
 Legenda: ✅ passou · ❌ falhou · ⚠️ parcial · ⬜ não executado
+
+```
+
+```
