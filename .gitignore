@@ -1,0 +1,25 @@
+# Variáveis de ambiente com valores reais
+.env
+
+# Claude Code — config local com tokens dos MCPs
+.claude/settings.local.json
+
+# Estado local do Genie
+.genie/
+
+# Dependências
+node_modules/
+
+# Build
+dist/
+
+# Logs
+*.log
+logs/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
