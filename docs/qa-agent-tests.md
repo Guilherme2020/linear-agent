@@ -100,6 +100,11 @@ Correção: adicionado limitações explícitas no AGENTS.md.
 
 # - Ações administrativas (webhooks, configurações de time)
 
+Status: ✅ (após correção do AGENTS.md)
+Observação: Bug identificado na primeira execução — agente dizia "não tenho permissão"
+em vez de informar que a tool não existe. Corrigido adicionando limitações explícitas
+no AGENTS.md. Reexecutado e comportamento correto confirmado.
+
 ---
 
 ## Bloco 2 — Criação e atualização de issues
