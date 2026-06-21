@@ -304,14 +304,24 @@ linear-agent/
 ├── .env.example                 # Variáveis necessárias (valores fictícios)
 ├── .gitignore                   # Exclui .env e arquivos sensíveis
 ├── docker-compose.yml           # Setup reproduzível
+├── package.json                 # Scripts de teste e dependências
+├── tsconfig.json                # Configuração TypeScript
+├── bun.lock                     # Lockfile do Bun
 ├── .claude/
 │   └── settings.local.json      # MCPs configurados (no .gitignore)
-├── docs/
-│   └── architecture.md          # Diagrama detalhado + decisões
-└── tests/
-    ├── create-issue.test.ts
-    ├── list-issues.test.ts
-    └── linear-github-cross.test.ts
+├── skills/
+│   └── linear-agent.md          # Skill customizada do agente
+├── scripts/
+│   └── proactive-notify.sh      # Script de notificações proativas via cron
+├── tests/
+│   ├── create-issue.test.ts     # Testes de criação de issues
+│   ├── list-issues.test.ts      # Testes de listagem com filtros
+│   ├── update-issue.test.ts     # Testes de atualização de status
+│   └── linear-github-cross.test.ts  # Testes de cruzamento Linear + GitHub
+└── docs/
+    ├── architecture.md          # Diagrama de arquitetura + 7 decisões técnicas
+    ├── linear-mcp-tools.md      # Referência completa das 38 tools do Linear MCP
+    └── qa-agent-tests.md        # Script de QA com 24 casos de teste + outputs
 ```
 
 ---
