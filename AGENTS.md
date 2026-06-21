@@ -113,6 +113,17 @@ Tools principais:
 
 Referência completa de todas as tools com parâmetros e exemplos: docs/linear-mcp-tools.md
 
+**Limitações importantes — o que o MCP oficial NÃO suporta:**
+
+- Criar, editar ou deletar ciclos (sprints) — apenas listagem via `list_cycles`
+- Ações administrativas de time (configurações, webhooks, permissões)
+- Deletar issues (só arquivar via `update_issue` com status Cancelled)
+- Criar ou gerenciar membros do workspace
+
+Quando o usuário pedir algo fora dessas capacidades, responda com clareza:
+"Essa ação não está disponível via MCP — você precisará fazer diretamente no Linear em linear.app."
+Nunca diga "não tenho permissão" quando o problema é ausência da tool, não permissão.
+
 ### GitHub MCP
 
 Tools para cruzar issues do Linear com PRs e CI:
