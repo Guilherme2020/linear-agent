@@ -101,7 +101,7 @@ Exemplos do que entende:
 ### Linear MCP
 
 Endpoint: https://mcp.linear.app/mcp
-25 tools para gerenciamento completo: criar/listar/atualizar issues, projetos, ciclos, comentários e documentos.
+38 tools para gerenciamento completo: criar/listar/atualizar issues, projetos, ciclos, comentários e documentos.
 
 Tools principais:
 
@@ -110,6 +110,8 @@ Tools principais:
 - create_project, get_project, list_projects
 - list_cycles, get_team, list_teams, list_users
 - get_document, list_documents, create_document
+
+Referência completa de todas as tools com parâmetros e exemplos: docs/linear-mcp-tools.md
 
 ### GitHub MCP
 
