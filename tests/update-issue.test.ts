@@ -1,16 +1,10 @@
 import { describe, it, expect, afterAll } from 'bun:test';
-
-/**
- * Testes de atualização de issues via Linear MCP
- *
- * Execução: bun test tests/update-issue.test.ts
- */
+import { callLinearTool } from './helpers';
 
 const LINEAR_TEAM_ID = process.env.LINEAR_TEAM_ID ?? '';
 const createdIssueIds: string[] = [];
 
 afterAll(async () => {
-  // Cleanup: cancelar todas as issues criadas nos testes
   const cancelledId = await getCancelledStateId(LINEAR_TEAM_ID);
   for (const id of createdIssueIds) {
     await callLinearTool('update_issue', { id, stateId: cancelledId });
@@ -61,7 +55,6 @@ describe('Linear MCP — atualizar issues', () => {
 
     createdIssueIds.push(issue.id);
 
-    // Buscar ID do estado "In Progress"
     const states = (await callLinearTool('list_issue_statuses', {
       teamId: LINEAR_TEAM_ID
     })) as { nodes?: Array<{ id: string; name: string }> };
@@ -87,35 +80,6 @@ describe('Linear MCP — atualizar issues', () => {
     expect(fetched.state?.name.toLowerCase()).toContain('progress');
   });
 });
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-async function callLinearTool(
-  tool: string,
-  input: Record<string, unknown>
-): Promise<Record<string, unknown>> {
-  const response = await fetch('https://mcp.linear.app/mcp', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.LINEAR_API_TOKEN ?? ''}`
-    },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'tools/call',
-      params: { name: tool, arguments: input }
-    })
-  });
-
-  const data = (await response.json()) as {
-    result?: { content?: Array<{ text?: string }> };
-  };
-  const text = data.result?.content?.[0]?.text ?? '{}';
-  return JSON.parse(text) as Record<string, unknown>;
-}
 
 async function getCancelledStateId(teamId: string): Promise<string> {
   const states = (await callLinearTool('list_issue_statuses', { teamId })) as {
