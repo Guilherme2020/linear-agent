@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: linear-agent-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: omni
+      POSTGRES_PASSWORD: omni
+      POSTGRES_DB: omni
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U omni']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  nats:
+    image: nats:2.10-alpine
+    container_name: linear-agent-nats
+    restart: unless-stopped
+    command: ['--jetstream', '--store_dir=/data']
+    ports:
+      - '4222:4222'
+      - '8222:8222' # HTTP monitoring
+    volumes:
+      - nats_data:/data
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:8222/healthz || exit 1']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  omni:
+    image: node:22-alpine
+    container_name: linear-agent-omni
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install -g @automagik/omni bun && omni install --no-pm2 && omni start"
+    environment:
+      DATABASE_URL: postgresql://omni:omni@postgres:5432/omni
+      NATS_URL: nats://nats:4222
+      OMNI_API_KEY: ${OMNI_API_KEY}
+      PORT: 8882
+    ports:
+      - '8882:8882'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+    volumes:
+      - omni_data:/root/.omni
+
+volumes:
+  postgres_data:
+  nats_data:
+  omni_data:
