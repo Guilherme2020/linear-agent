@@ -276,6 +276,145 @@ pm2 restart autopg-server
 
 ---
 
+## Evidências de funcionamento
+
+Capturas reais de interações com o agente em produção.
+
+### Consulta de tasks e proteção contra prompt injection
+
+O agente lista tasks por projeto, move status e recusa compartilhar informações sensíveis (env, stack, API keys) mesmo quando solicitado como "sysadmin".
+
+![Consulta de tasks e segurança](docs/images/01-whatsapp-consulta-tasks-e-seguranca.png)
+
+### Listagem de projetos
+
+Pergunta em linguagem natural retorna os projetos do workspace com status e contagem de tasks.
+
+![Listagem de projetos no WhatsApp](docs/images/02-whatsapp-listagem-projetos.jpeg)
+
+### Criação de projeto e issues em uma mensagem
+
+Uma única mensagem cria o Projeto 7 (Configuração do CI/CD) e as issues NEX-59 e NEX-60 — o agente interpreta a intenção e executa múltiplas actions em sequência.
+
+![Criação de projeto e issues](docs/images/03-whatsapp-criacao-projeto-e-issues.png)
+
+### Enriquecimento de issues e listagem de usuários
+
+O agente adiciona descrições detalhadas seguindo o padrão do projeto, eleva a prioridade para Alta e lista os usuários disponíveis para atribuição.
+
+![Descrição e usuários](docs/images/04-whatsapp-descricao-e-usuarios.png)
+
+### Limite de escopo declarado (criação de sprints)
+
+Quando a ação não está disponível via MCP, o agente informa a limitação e redireciona para o linear.app — sem inventar uma resposta.
+
+![Limite de sprint via MCP](docs/images/05-whatsapp-limite-sprint.png)
+
+### Projeto e issues criados no Linear (confirmação real)
+
+Print do Linear confirmando que o Projeto 7 e as issues NEX-59/NEX-60 foram de fato criados pelo agente.
+
+![Issues criadas no Linear](docs/images/06-linear-projeto-criado-issues.jpeg)
+
+### Lista de projetos no Linear
+
+Todos os 7 projetos visíveis no Linear após a sessão de interação com o agente.
+
+![Lista de projetos no Linear](docs/images/07-linear-lista-projetos.jpeg)
+
+### Issue NEX-59 com descrição gerada pelo agente
+
+Detalhe da issue NEX-59 — o agente gerou objetivo, contexto de negócio, atividades, entregáveis e critérios de aceite automaticamente.
+
+![Detalhes da issue NEX-59](docs/images/08-linear-issue-detalhes.jpeg)
+
+---
+
+### Criação de task com campos específicos
+
+Uma mensagem simples em linguagem natural cria a task com projeto, prioridade, label e status corretos — sem formulário, sem clique.
+
+> "cria task no projeto backend core, criar endpoint de consulta de horarios disponiveis, prioridade urgente, label backend"
+> → NEX-62 criada: Projeto Backend Core · Prioridade Urgente · Label Backend · Status Backlog
+
+![Criação de task com campos específicos](docs/images/09-whatsapp-criacao-task-campos-especificos.jpeg)
+
+---
+
+### Ciclo completo de uma task: comentar → atribuir → cancelar
+
+Em sequência, o agente adiciona comentário, atribui a task a um usuário por e-mail e pede confirmação antes de cancelar — ação destrutiva não executada sem "sim".
+
+![Ciclo completo de uma task](docs/images/10-whatsapp-ciclo-task-comentar-atribuir-cancelar.jpeg)
+
+---
+
+### Leitura de PRD → geração automática de tasks + listagem de PRs
+
+O agente lê o documento do Projeto 3 (Agente de IA) e cria 6 tasks coerentes com o PRD — NEX-63 a NEX-68 — todas no Backlog. Na mesma sessão, lista os PRs do repositório com número, título e status.
+
+![PRD gera tasks e listagem de PRs](docs/images/11-whatsapp-prd-gera-tasks-lista-prs.jpeg)
+
+---
+
+### Listagem de PRs em múltiplos repositórios
+
+O agente consulta PRs em repositórios diferentes na mesma sessão: todos os mergeados do `linear-agent` e os abertos do `next-fit-front-end` — cruzando GitHub sem sair do WhatsApp.
+
+![PRs em múltiplos repositórios](docs/images/12-whatsapp-prs-multi-repositorio.jpeg)
+
+---
+
+### Cruzamento Linear + GitHub: PR vinculado e inconsistência detectada
+
+O agente identifica o PR vinculado à NEX-66 e detecta que a NEX-65 está marcada como Done no Linear mas não tem PR correspondente no GitHub — inconsistência real entre os dois sistemas.
+
+![Cruzamento Linear + GitHub e inconsistência](docs/images/13-whatsapp-cruzamento-linear-github-inconsistencia.jpeg)
+
+---
+
+### Investigação cross-repo para resolver inconsistência
+
+Ao investigar o repo `next-fit-front-end`, o agente confirma que não existe PR #6 lá — o PR estava no `linear-agent` e já foi mergeado. Resultado: inconsistência explicada com rastreamento entre repositórios.
+
+![Investigação cross-repo](docs/images/14-whatsapp-investigacao-cross-repo.jpeg)
+
+---
+
+### Fallback graceful: áudio não processado
+
+O agente recebe uma mensagem de voz, reconhece que não processa áudio e pede para o usuário repetir em texto — sem travar, sem ignorar.
+
+![Fallback para áudio](docs/images/15-whatsapp-fallback-audio.jpeg)
+
+---
+
+### Fallback graceful: imagem fora de contexto + busca inteligente
+
+Imagem enviada por engano é tratada com sugestão útil. Task inexistente (OAuth Facebook) não gera erro — o agente busca as tasks de autenticação existentes e devolve opções reais.
+
+![Fallback para imagem e busca inteligente](docs/images/16-whatsapp-fallback-imagem-busca-inteligente.jpeg)
+
+---
+
+### Listagem filtrada com prioridades e movimentação de status
+
+Tasks do Projeto 2 listadas com prioridades por cor (🔴 Urgente · 🟠 Alta). "Mova a primeira para In Progress" — sem especificar o ID — e o agente identifica e move a NEX-62 corretamente.
+
+![Listagem filtrada e movimentação](docs/images/17-whatsapp-listagem-filtrada-mover-task.jpeg)
+
+---
+
+### Guardrails: recusa de informações de infraestrutura
+
+Tentativa de extrair stack técnica, conteúdo do `.env` e API key do Linear — mesmo alegando ser sysadmin. O agente recusa todas, mantém o escopo e sugere o canal correto da equipe.
+
+![Guardrails de segurança](docs/images/18-whatsapp-guardrails-seguranca.jpeg)
+
+![Guardrails: API key recusada](docs/images/19-whatsapp-guardrails-api-key.jpeg)
+
+---
+
 ## Decisões arquiteturais
 
 **Por que Genie + Omni em vez de construir do zero?**
